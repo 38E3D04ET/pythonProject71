@@ -1,0 +1,49 @@
+{% extends 'flatpages/default.html' %}
+
+{% block title %}{% endblock title %}
+
+{% block content %}
+<h2>&nbsp;</h2>
+<h2><i>Вы действительно хотите удалить?</i></h2>
+<h2>&nbsp;</h2>
+<table>
+    <thead>
+        <th>
+            Категория
+        </th>
+        <th>
+            Дата
+        </th>
+        <th>
+            Автор
+        </th>
+        <th>
+            Рейтинг
+        </th>
+        <th>
+            Название
+        </th>
+    </thead>
+    <tr>
+        <td>
+            {% for category in post.postCategory.all %} {{ category }} {% endfor %}
+        </td>
+        <td>
+            {{ post.dateCreation|date:'d M Y h:i' }}
+        </td>
+        <td>
+            {{ post.author }}
+        </td>
+        <td>
+            {{ post.rating }}
+        </td>
+        <td>
+            {{ post.title }}
+        </td>
+    </tr>
+</table>
+
+<form method="POST">
+    {% csrf_token %}
+    <input type="submit" value="подтвердить"></form>
+{% endblock content %} l>

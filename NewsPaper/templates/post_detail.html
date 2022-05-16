@@ -1,0 +1,65 @@
+{% extends 'flatpages/default.html' %}
+
+{% load censor %}
+
+{% block title %} Product list {% endblock title %}
+
+{% block content %}
+<h2>&nbsp;</h2>
+<h2><i>Подробности</i></h2>
+<h2>&nbsp;</h2>
+<table>
+    <thead>
+        <th>
+            Категория
+        </th>
+        <th>
+            Дата
+        </th>
+        <th>
+            Автор
+        </th>
+        <th>
+            Рейтинг
+        </th>
+        <th>
+            Название
+        </th>
+        <th>
+            Текст
+        </th>
+    </thead>
+    <tr>
+        <td>
+            {% for category in post.postCategory.all %} {{ category }} {% endfor %}
+        </td>
+        <td>
+            {{ post.dateCreation|date:'d M Y h:i' }}
+        </td>
+        <td>
+            {{ post.author }}
+        </td>
+        <td>
+            {{ post.rating }}
+        </td>
+        <td>
+            {{ post.title|censor }}
+        </td>
+        <td>
+            {{ post.text|censor }}
+        </td>
+        <hr>
+
+            {% if is_not_subscribe %}
+
+            <button><a href="add_subscribe/?pk={{ post.category.id }}">Подписаться на все новости категории "{{ category.category|title }}"</a></button>
+            {% endif %}
+
+            {% if is_subscribe %}
+            <button><a href="del_subscribe/?pk={{ post.category.id }}">Отписаться от новостей категории "{{ post.category|title }}"</a></button>
+            {% endif %}
+
+        <hr>
+    </tr>
+</table>
+{% endblock content %}
